@@ -3,7 +3,6 @@
 import Container from "@/components/Container";
 import ForecastDetail from "@/components/ForecastDetail";
 import Navbar from "@/components/Navbar";
-import WeatherDetail from "@/components/WeatherDetail";
 import WeatherIcon from "@/components/WeatherIcon";
 import { convertKtoC } from "@/utils/convertKtoC";
 import { convertWindSpeed } from "@/utils/convertWindSpeed";
@@ -204,36 +203,12 @@ export default function Home() {
 
               {/* /**24 hour forcast */}
               <Container className="flex-col">
-
-                {/* temperature */}
-                {/* <div className="flex flex-col px-4">
-                  <span className="text-5xl">
-                    {convertKtoC(firstData?.main.temp ?? 297.31)}°
-                  </span>
-                  <p className="text-xs space-x-1 whitespace-nowrap">
-                    <span>Feels like</span>
-                    <span>
-                      {convertKtoC(firstData?.main.feels_like ?? 273.15)}°
-                    </span>
-                  </p>
-                  <p className="text-xs space-x-2">
-                    <span>
-                      {convertKtoC(firstData?.main.temp_min ?? 273.15)}°↓{" "}
-                    </span>
-                    <span>
-                      {" "}
-                      {convertKtoC(firstData?.main.temp_max ?? 273.15)}
-                      °↑
-                    </span>
-                  </p>
-                </div> */}
-
                 <div className="flex items-center justify-between mb-6">
                   <h2 className="text-2xl font-bold text-white">24-Hour Forecast</h2>
                   <Star className="text-yellow-400" size={24} />
                 </div>
                 {/* time and weather icon */}
-                <div className="flex gap-10 sm:gap-16 overflow-x-auto w-full justify-between pr-3 scrollbar-hide" style={{scrollbarWidth:'none',msOverflowStyle:'none'}}>
+                <div className="flex gap-10 sm:gap-16 overflow-x-auto w-full justify-between pr-3 scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
 
                   {data.list.map((d, i) => (
 
@@ -326,69 +301,118 @@ export default function Home() {
 
 function WeatherSkeleton() {
   return (
-    <main className="px-3 max-w-7xl mx-auto flex flex-col gap-9 w-full pb-10 pt-4 animate-pulse">
-      {/* Today's Date */}
-      <section className="space-y-4">
-        <div className="space-y-2">
-          <h2 className="flex gap-1 text-2xl items-end">
-            <div className="h-6 w-32 bg-gray-300 rounded" />
-            <div className="h-6 w-24 bg-gray-300 rounded" />
-          </h2>
-
-          <div className="gap-10 p-6 flex flex-col md:flex-row items-center justify-between">
-            {/* Temperature */}
-            <div className="flex flex-col px-4 items-start">
-              <div className="h-16 w-32 bg-gray-300 rounded-md" />
-              <div className="h-4 w-24 bg-gray-300 rounded mt-2" />
-              <div className="flex gap-2 mt-1">
-                <div className="h-4 w-16 bg-gray-300 rounded" />
-                <div className="h-4 w-16 bg-gray-300 rounded" />
+    <div className="relative z-10 px-6 pb-6">
+      <div className="max-w-7xl mx-auto space-y-8">
+        {/* Main Weather Card Skeleton */}
+        <Container className="lg:col-span-3 animate-pulse">
+          <div className="flex items-center justify-between w-full">
+            <div className="space-y-2">
+              {/* Temperature skeleton */}
+              <div className="flex items-baseline space-x-2">
+                <div className="h-20 w-32 bg-white/20 rounded-lg"></div>
+                <div className="h-8 w-6 bg-white/20 rounded"></div>
+              </div>
+              {/* Description skeleton */}
+              <div className="h-6 w-40 bg-white/20 rounded"></div>
+              {/* Feels like skeleton */}
+              <div className="h-4 w-32 bg-white/20 rounded"></div>
+              {/* Min/Max temps skeleton */}
+              <div className="flex items-center space-x-4">
+                <div className="h-4 w-16 bg-white/20 rounded"></div>
+                <div className="h-4 w-16 bg-white/20 rounded"></div>
               </div>
             </div>
-            {/* Hourly Forecast */}
-            <div className="flex gap-6 overflow-x-auto w-full pr-3">
-              {Array.from({ length: 6 }).map((_, i) => (
-                <div key={i} className="flex flex-col items-center gap-2">
-                  <div className="h-4 w-12 bg-gray-300 rounded" />
-                  <div className="h-8 w-8 bg-gray-300 rounded-full" />
-                  <div className="h-4 w-10 bg-gray-300 rounded" />
+            {/* Weather icon skeleton */}
+            <div className="w-32 h-32 bg-white/20 rounded-full"></div>
+          </div>
+        </Container>
+
+        {/* Metrics Cards Skeleton */}
+        <div className="space-y-4 lg:col-span-3">
+          <div className="grid grid-cols-2 gap-4">
+            {[...Array(2)].map((_, i) => (
+              <Container key={i} className="text-center flex justify-center animate-pulse">
+                <div className="flex flex-col items-center space-y-3">
+                  <div className="w-12 h-12 bg-white/20 rounded-full"></div>
+                  <div className="space-y-2">
+                    <div className="h-4 w-16 bg-white/20 rounded"></div>
+                    <div className="h-6 w-20 bg-white/20 rounded"></div>
+                  </div>
                 </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="flex gap-4">
-          {/* Description */}
-          <div className="flex-1 flex flex-col items-center px-4">
-            <div className="h-4 w-32 bg-gray-300 rounded mb-2" />
-            <div className="h-12 w-12 bg-gray-300 rounded-full" />
-          </div>
-          {/* Details */}
-          <div className="flex-1 bg-yellow-300/80 p-6 flex flex-col gap-4">
-            {['Visibility', 'Air Pressure', 'Humidity', 'Sunrise', 'Sunset', 'Wind Speed'].map((label, i) => (
-              <div key={i} className="flex justify-between w-full">
-                <div className="h-4 w-24 bg-gray-300 rounded" />
-                <div className="h-4 w-20 bg-gray-300 rounded" />
-              </div>
+              </Container>
             ))}
           </div>
         </div>
-      </section>
 
-      {/* 7-day forecast */}
-      <section className="flex w-full flex-col gap-4">
-        <div className="h-6 w-40 bg-gray-300 rounded" />
-        {Array.from({ length: 7 }).map((_, i) => (
-          <div key={i} className="flex items-center justify-between p-4 bg-gray-100 rounded-md">
-            <div className="h-4 w-20 bg-gray-300 rounded" />
-            <div className="h-8 w-8 bg-gray-300 rounded-full" />
-            <div className="h-4 w-16 bg-gray-300 rounded" />
-            <div className="h-4 w-16 bg-gray-300 rounded" />
-            <div className="h-4 w-16 bg-gray-300 rounded" />
+        {/* 24-Hour Forecast Skeleton */}
+        <Container className="flex-col animate-pulse">
+          <div className="flex items-center justify-between mb-6">
+            <div className="h-8 w-48 bg-white/20 rounded"></div>
+            <div className="w-6 h-6 bg-white/20 rounded"></div>
           </div>
-        ))}
-      </section>
-    </main>
+
+          <div className="flex gap-10 sm:gap-16 overflow-x-auto w-full justify-between pr-3">
+            {[...Array(8)].map((_, i) => (
+              <div key={i} className="flex-shrink-0 space-y-3 p-4 min-w-[80px]">
+                <div className="h-4 w-16 bg-white/20 rounded mx-auto"></div>
+                <div className="w-16 h-16 bg-white/20 rounded-full mx-auto"></div>
+                <div className="h-4 w-12 bg-white/20 rounded mx-auto"></div>
+              </div>
+            ))}
+          </div>
+        </Container>
+
+        {/* Weather Metrics Grid Skeleton */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {[...Array(4)].map((_, i) => (
+            <Container key={i} className="text-center flex justify-center group animate-pulse">
+              <div className="flex flex-col items-center space-y-3">
+                <div className="w-12 h-12 bg-white/20 rounded-full"></div>
+                <div className="space-y-2">
+                  <div className="h-4 w-16 bg-white/20 rounded"></div>
+                  <div className="h-6 w-20 bg-white/20 rounded"></div>
+                </div>
+              </div>
+            </Container>
+          ))}
+        </div>
+
+        {/* 5-Day Forecast Skeleton */}
+        <section className="flex w-full flex-col text-white gap-4">
+          <div className="h-8 w-48 bg-white/20 rounded animate-pulse"></div>
+          <div className="flex justify-between flex-col gap-4">
+            {[...Array(5)].map((_, i) => (
+              <Container key={i} className="gap-6 py-8 text-white flex flex-col sm:flex-row items-center animate-pulse">
+                {/* Left section skeleton */}
+                <section className="flex gap-4 items-center px-4">
+                  <div className="flex flex-col gap-1 items-center">
+                    <div className="w-16 h-16 bg-white/20 rounded-full"></div>
+                    <div className="h-4 w-12 bg-white/20 rounded"></div>
+                    <div className="h-3 w-16 bg-white/20 rounded"></div>
+                  </div>
+
+                  <div className="flex flex-col px-4 space-y-2">
+                    <div className="h-12 w-20 bg-white/20 rounded"></div>
+                    <div className="h-3 w-24 bg-white/20 rounded"></div>
+                    <div className="h-4 w-32 bg-white/20 rounded"></div>
+                  </div>
+                </section>
+
+                {/* Right section skeleton */}
+                <section className="overflow-x-auto justify-between grid grid-cols-2 md:grid-cols-4 gap-4 px-4 w-full pr-10">
+                  {[...Array(4)].map((_, j) => (
+                    <div key={j} className="flex flex-col justify-between gap-2 items-center">
+                      <div className="h-3 w-16 bg-white/20 rounded"></div>
+                      <div className="w-8 h-8 bg-white/20 rounded"></div>
+                      <div className="h-3 w-12 bg-white/20 rounded"></div>
+                    </div>
+                  ))}
+                </section>
+              </Container>
+            ))}
+          </div>
+        </section>
+      </div>
+    </div>
   );
 }
