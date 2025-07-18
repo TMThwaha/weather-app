@@ -35,11 +35,11 @@ export default function ForecastDetail(
   } = props
 
   return (
-   <Container className='gap-4'>
+   <Container className='gap-6 py-8 text-white flex flex-col sm:flex-row items-center'>
     {/**left */}
     <section className='flex gap-4 items-center px-4'>
     <div className='flex flex-col gap-1 items-center'>
-      <WeatherIcon  iconName = {weatherIcon} />
+      <WeatherIcon size={"w-16 h-16"} iconname = {weatherIcon} />
       <p> {date} </p>
       <p className='text-sm'> {day} </p>
     </div>
@@ -54,7 +54,7 @@ export default function ForecastDetail(
     </div>
     </section>
     {/**right */}
-    <section className='overflow-x-auto flex justify-between gap-4 px-4 w-full pr-10'>
+    <section className='overflow-x-auto justify-between grid grid-cols-2 md:grid-cols-4  gap-4 px-4 w-full pr-10'>
       <WeatherDetail {...props}/>
     </section>
    </Container>

@@ -11,8 +11,6 @@ export interface WeatherDetailProps {
     humidity: string;
     windSpeed: string;
     airPressure: string
-    sunrise: string;
-    sunset: string
 }
 export default function WeatherDetail(props: WeatherDetailProps) {
 
@@ -21,8 +19,6 @@ export default function WeatherDetail(props: WeatherDetailProps) {
         humidity = "61%",
         windSpeed = "7 km/h",
         airPressure = "1012 hpa",
-        sunrise = "6.20",
-        sunset = "18:48"
     } = props;
     return <>
         <SingleWeatherDetail
@@ -41,14 +37,6 @@ export default function WeatherDetail(props: WeatherDetailProps) {
             icon={<ImMeter />}
             information="Air Pressure"
             value={props.airPressure} />
-        <SingleWeatherDetail
-            icon={<LuSunrise />}
-            information="Sunrise"
-            value={props.sunrise} />
-        <SingleWeatherDetail
-            icon={<LuSunset />}
-            information="Sunset"
-            value={props.sunset} />
     </>
 }
 
@@ -60,7 +48,7 @@ export interface SingleWeatherDetailProps {
 
 function SingleWeatherDetail(props: SingleWeatherDetailProps) {
     return (
-        <div className='flex flex-col justify-between gap-2 items-center text-xs font-semibold text-black/80'>
+        <div className='flex flex-col text-white/50 justify-between gap-2 items-center text-xs font-semibold'>
             <p className='whitespace-nowrap'>{props.information}</p>
             <div className='text-3xl'>{props.icon} </div>
             <p> {props.value} </p>

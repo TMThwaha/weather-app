@@ -14,3 +14,16 @@ const eslintConfig = [
 ];
 
 export default eslintConfig;
+module.exports = {
+  content: [
+    // your existing content paths
+  ],
+  theme: {
+    extend: {
+      backdropBlur: {
+        xs: '2px',
+      }
+    },
+  },
+  plugins: [],
+}
